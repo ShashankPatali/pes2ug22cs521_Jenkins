@@ -1,27 +1,26 @@
 pipeline {
-    agent {
-        docker {
-            image 'gcc:latest'
-        }
-    }
+    agent any
+    
     stages {
         stage('Build') {
             steps {
-                sh 'npm install'
-                sh 'npm run build'
+                sh 'g++ -o pes2ug22cs521-1 main.cpp'
             }
         }
+        
         stage('Test') {
             steps {
-                sh 'npm test'
+                sh './pes2ug22cs521-1'
             }
         }
+        
         stage('Deploy') {
             steps {
-                sh 'echo Deploying application...'
+                echo 'Deploying Application...'
             }
         }
     }
+    
     post {
         failure {
             echo 'Pipeline failed'
